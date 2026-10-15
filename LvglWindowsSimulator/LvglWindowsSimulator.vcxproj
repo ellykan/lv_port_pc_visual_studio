@@ -41,6 +41,8 @@
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>LV_CONF_INCLUDE_SIMPLE;LV_LVGL_H_INCLUDE_SIMPLE;LV_USE_DEV_VERSION;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Optimization Condition="'$(Configuration)'=='Release'">MinSpace</Optimization>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\vzhan\Documents\EllyPet-v9\EllyPet\src
+</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -1016,6 +1018,7 @@
     <Manifest Include="LvglWindowsSimulator.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Users\vzhan\Documents\EllyPet-v9\EllyPet\src\app\App.cpp" />
     <ClCompile Include="LvglWindowsSimulator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\LvglPlatform\lvgl\demos\benchmark\assets\img_benchmark_avatar.c">
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>

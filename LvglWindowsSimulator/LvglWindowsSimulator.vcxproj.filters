@@ -2906,6 +2906,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LvglWindowsSimulator.cpp" />
+    <ClCompile Include="..\..\..\Users\vzhan\Documents\EllyPet-v9\EllyPet\src\app\App.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\LvglPlatform\lvgl\demos\benchmark\assets\img_benchmark_avatar.c">
       <Filter>lvgl\demos\benchmark\assets</Filter>
     </ClCompile>
