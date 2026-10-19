@@ -1019,6 +1019,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\EllyPet\src\**\*.cpp" />
+    <ClCompile Include="..\..\EllyPet\src\**\*.c" />
     <ClCompile Include="LvglWindowsSimulator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)..\LvglPlatform\lvgl\demos\benchmark\assets\img_benchmark_avatar.c">
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
