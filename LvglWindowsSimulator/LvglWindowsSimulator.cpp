@@ -3,9 +3,54 @@
 #include <LvglWindowsIconResource.h>
 
 #include "app/App.h"
+#include "hal/Clock.h"
 #include "lvgl/lvgl.h"
 #include "lvgl/examples/lv_examples.h"
 #include "lvgl/demos/lv_demos.h"
+
+// ---------------------------------------------------------------------------
+// Dev keys (simulator only). Click the simulator window, then:
+//   F1 battery 85%   F2 15% (low)   F3 4% (critical)   F4 60% charging
+//   F5 water reminder   F6 morning letter   F7 lock (needs a PIN)
+//   1 night (2:00)  2 morning (8:05)  3 day (12:00)  4 evening (18:00)
+//   5 wind-down (0:15)
+// ---------------------------------------------------------------------------
+
+// True once per key press, and only while the simulator window is in front,
+// so typing in Visual Studio doesn't trigger anything.
+static bool devKey(int vk) {
+    static bool down[256] = {};
+    DWORD pid = 0;
+    GetWindowThreadProcessId(GetForegroundWindow(), &pid);
+    bool now = pid == GetCurrentProcessId() && (GetAsyncKeyState(vk) & 0x8000);
+    bool hit = now && !down[vk];
+    down[vk] = now;
+    return hit;
+}
+
+// Jump the simulator's clock to h:m today.
+static void simTime(int h, int m) {
+    LocalTime t;
+    if (!hal::localTime(t)) return;
+    t.hour = (uint8_t)h; t.minute = (uint8_t)m; t.second = 0;
+    hal::setLocalTime(t);
+}
+
+static void handleDevKeys() {
+    if (devKey(VK_F1)) App::devSetBattery(85, false);
+    if (devKey(VK_F2)) App::devSetBattery(15, false);
+    if (devKey(VK_F3)) App::devSetBattery(4, false);
+    if (devKey(VK_F4)) App::devSetBattery(60, true);
+    if (devKey(VK_F5)) App::devPost(Ev::ReminderDue, 0);
+    if (devKey(VK_F6)) App::devPost(Ev::GoodMorning);
+    if (devKey(VK_F7)) App::devLockNow();
+
+    if (devKey('1')) simTime(2, 0);
+    if (devKey('2')) simTime(8, 5);
+    if (devKey('3')) simTime(12, 0);
+    if (devKey('4')) simTime(18, 0);
+    if (devKey('5')) simTime(0, 15);
+}
 
 int main()
 {
@@ -96,6 +141,7 @@ int main()
     while (1)
     {
         App::tick();
+        handleDevKeys();
         uint32_t time_till_next = lv_timer_handler();
         lv_delay_ms(time_till_next);
     }
