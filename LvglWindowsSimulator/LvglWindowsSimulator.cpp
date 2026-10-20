@@ -37,19 +37,26 @@ static void simTime(int h, int m) {
 }
 
 static void handleDevKeys() {
-    if (devKey(VK_F1)) App::devSetBattery(85, false);
-    if (devKey(VK_F2)) App::devSetBattery(15, false);
-    if (devKey(VK_F3)) App::devSetBattery(4, false);
-    if (devKey(VK_F4)) App::devSetBattery(60, true);
-    if (devKey(VK_F5)) App::devPost(Ev::ReminderDue, 0);
-    if (devKey(VK_F6)) App::devPost(Ev::GoodMorning);
-    if (devKey(VK_F7)) App::devLockNow();
+    // Battery status simulation
+    if (devKey(VK_F1)) App::devSetBattery(85, false);   // 85%, not charging, no battery status
+    if (devKey(VK_F2)) App::devSetBattery(15, false);   // 15%, not charging, low battery status
+    if (devKey(VK_F3)) App::devSetBattery(4, false);    // 4%, not charging, critical battery status
+    if (devKey(VK_F4)) App::devSetBattery(60, true);    // 60%, charging, charging battery status 
 
-    if (devKey('1')) simTime(2, 0);
-    if (devKey('2')) simTime(8, 5);
-    if (devKey('3')) simTime(12, 0);
-    if (devKey('4')) simTime(18, 0);
-    if (devKey('5')) simTime(0, 15);
+    // Prop reminders
+    if (devKey(VK_F5)) App::devPost(Ev::ReminderDue, 0); // Water reminder
+    if (devKey(VK_F6)) App::devPost(Ev::ReminderDue, 1); // Stretch reminder
+    if (devKey(VK_F7)) App::devPost(Ev::ReminderDue, 2); // Meds reminder
+    if (devKey(VK_F8)) App::devPost(Ev::GoodMorning);    // Good morning mail icon
+
+    if (devKey(VK_F9)) App::devLockNow();                // Lock the pet
+
+    // Simulate day/night phase change 
+    if (devKey('1')) simTime(2, 0);                     // Night (Quiet Hours)
+    if (devKey('2')) simTime(8, 5);                     // Morning
+    if (devKey('3')) simTime(12, 0);                    // Day
+    if (devKey('4')) simTime(18, 0);                    // Winddown
+    if (devKey('5')) simTime(0, 15);                    // Evening
 }
 
 int main()
