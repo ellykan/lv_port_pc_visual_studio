@@ -673,7 +673,7 @@
  *============================================================================*/
 
 /** Distance the pointer needs to travel before scrolling starts. */
-#define LV_INDEV_DEF_SCROLL_LIMIT 10
+#define LV_INDEV_DEF_SCROLL_LIMIT 18   // was 10: a slightly wobbly tap stays a tap
 
 /** Slow-down applied after releasing a scroll. Greater value means faster slow-down. */
 #define LV_INDEV_DEF_SCROLL_THROW 10
@@ -1016,7 +1016,7 @@
 #define LV_FONT_MONTSERRAT_16 0
 
 /** Montserrat 18 */
-#define LV_FONT_MONTSERRAT_18 0
+#define LV_FONT_MONTSERRAT_20 1        // was 0: row and button text
 
 /** Montserrat 20 */
 #define LV_FONT_MONTSERRAT_20 1
